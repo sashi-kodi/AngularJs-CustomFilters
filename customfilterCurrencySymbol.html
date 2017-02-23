@@ -1,0 +1,40 @@
+<!--//custom filter that will take the currency symbol and boolean value true or false for appending the currency symbol to the beginning of the value or at the end.-->
+
+<!doctype>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+
+</head>
+    <body ng-app="myapp">
+    <h2> Welcome to World of Custom Filters</h2>
+        <ul ng-controller="myCtrl">
+            <li ng-repeat="price in prices">{{price|priceFilter:'':false}}</li>
+        
+        </ul>
+    
+        <script>
+            var myapp=angular.module('myapp',[]);
+            myapp.filter('priceFilter', function(){
+                return function(input,symbol,bool){
+                  if(isNaN(input)){
+                      //input is string
+                     return input; 
+                  }
+                    else{
+                        if(!symbol) symbol='$';
+                        if(bool===undefined) bool=true;
+                        var out=input;
+                        if(bool) out= symbol+out;
+                        else out=out+symbol;
+                        return out;
+                    }
+                    
+                };
+            });
+            myapp.controller('myCtrl', function($scope){
+               $scope.prices=[9.99,25.0,300,10.25];
+            });
+        </script>
+    </body>
+</html>

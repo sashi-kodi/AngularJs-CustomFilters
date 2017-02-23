@@ -1,0 +1,57 @@
+<!--This filter is a custom filter that filters out students based on the batch name-->
+
+<!doctype>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+
+</head>
+    <body ng-app="myapp">
+    <h2> Welcome to World of Custom Filters</h2>
+        <ul ng-controller="myCtrl">
+            <li ng-repeat="student in students|batchFilter:'qa'">{{student.name|capitalize}}</li>
+        
+        </ul>
+    
+        <script>
+            var myapp=angular.module('myapp',[]);
+            myapp.filter('capitalize', function(){
+                return function(input){
+                    if(isNaN(input)){
+                      var output=[];
+                      for(i=0;i<input.length;i++){
+                          if(i===0) output.push(input[i].toUpperCase());
+                          else output.push(input[i]);
+                      }
+                        
+                      return output.join('');  
+                    }
+                    else return input;
+                    
+                    
+                };
+            });
+            
+            myapp.filter('batchFilter', function(){
+                
+                
+               return function(input,batchname){
+                   if(!batchname) batchname='ui';
+                   
+                   var output=input.filter(function(stud){
+                      
+                       if(stud.batch===batchname) return true;
+                       else return false;
+                   });
+                  
+                   return output;
+                   
+               }; 
+            });
+            myapp.controller('myCtrl', function($scope){
+               $scope.students = [{name:'sashi',batch:'ui'},{name:'kiran', batch:'ui'},{name:'leela', batch:'ui'},{name:'bavani', batch:'ui'},{name:'usha', batch:'qa'},{name:'swetha', batch:'qa'}]; 
+            });
+            
+        </script>
+    </body>
+</html>

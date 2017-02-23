@@ -1,0 +1,43 @@
+<!--//custom filter that will capitalize 1st letter of each word. optionally we can pass a charater position of which letter to be capitalized. for numbers, filter returns back the input-->
+<!doctype>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+
+</head>
+    <body ng-app="myapp">
+    
+    <h1> Welcome to Subjects List</h1>
+        <ul ng-controller="subjectsCtrl">
+            <li ng-repeat="subject in subjects">{{subject|capitalize:2}}</li>
+            
+        </ul>
+        <script>
+            var myapp=angular.module('myapp',[]);
+            myapp.filter('capitalize', function(){
+                return function(input,pos){
+                    if(isNaN(input)){
+                        if(pos===undefined) pos=0;
+                        else pos=pos-1;
+                        
+                        var char=input[pos].toUpperCase();
+                        var output=[];
+                        for(var i=0;i<input.length;i++){
+                            if(i===pos) output.push(char);
+                            else output.push(input[i]);
+                        }
+                        
+                        return output.join('');
+                    }
+                    else{
+                        return input;
+                    }
+                    
+                };
+            });
+            myapp.controller('subjectsCtrl', function($scope){
+                $scope.subjects=['javascript', 'html5', 'css', 'jQuery', 'nodeJS', 'angularjs'];
+            });
+        </script>
+    </body>
+</html>

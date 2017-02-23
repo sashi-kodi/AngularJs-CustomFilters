@@ -1,0 +1,41 @@
+<!-- The first custom filter we’ll write will convert numbers to their ordinal values, meaning that if we apply our ordinal filter to say the number 43, what will be displayed is “43rd”.-->
+
+<!doctype>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+
+</head>
+    <body ng-app="myapp">
+    <h2> Welcome to World of Custom Filters</h2>
+        <ul>
+            <li>{{1|ordinalFilter}}</li>
+            <li>{{2|ordinalFilter}}</li>
+            <li>{{3|ordinalFilter}}</li>
+            <li>{{4|ordinalFilter}}</li>
+            <li>{{42|ordinalFilter}}</li>
+             <li>{{43|ordinalFilter}}</li>
+        
+        </ul>
+    
+        <script>
+            var myapp=angular.module('myapp',[]);
+            myapp.filter('ordinalFilter', function(){
+                return function(input){
+                    if(isNaN(input)||(input<1)) return input;
+                    else{
+                        var lastdigit=input%10;
+                        var output=input;
+                        switch(true){
+                            case lastdigit===1: output+='st'; break;
+                            case lastdigit===2: output+='nd'; break;
+                            case lastdigit===3: output+='rd';break;
+                            default: output+='th';
+                        }
+                        return output;
+                    }
+                };
+            });
+        </script>
+    </body>
+</html>

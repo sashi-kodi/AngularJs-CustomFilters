@@ -8,8 +8,14 @@
 </head>
     <body ng-app="myapp">
     <h2> Welcome to World of Custom Filters</h2>
+<!--
         <ul ng-controller="myCtrl">
             <li ng-repeat="student in students|batchFilter:'qa'">{{student.name|capitalize}}</li>
+        
+        </ul>
+-->
+    <ul ng-controller="myCtrl">
+            <li ng-repeat="student in students|nameStartsWith:'s'">{{student.name|capitalize}}</li>
         
         </ul>
     
@@ -32,6 +38,22 @@
                 };
             });
             
+            myapp.filter('nameStartsWith', function(){
+               return function(input,char){
+                   
+                   if(!char) return input;
+                   
+                 var output=[];  
+                   
+                   for(var i=0;i<input.length;i++){
+                       if(input[i].name.charAt(0)===char) output.push(input[i]);
+                   }
+                   
+                   return output;
+                   
+               }; 
+            });
+            
             myapp.filter('batchFilter', function(){
                 
                 
@@ -49,7 +71,7 @@
                }; 
             });
             myapp.controller('myCtrl', function($scope){
-               $scope.students = [{name:'sashi',batch:'ui'},{name:'kiran', batch:'ui'},{name:'leela', batch:'ui'},{name:'bavani', batch:'ui'},{name:'usha', batch:'qa'},{name:'swetha', batch:'qa'}]; 
+               $scope.students = [{name:'sashi',batch:'ui'},{name:'kiran', batch:'ui'},{name:'leela', batch:'ui'},{name:'bavani', batch:'ui'},{name:'usha', batch:'qa'},{name:'swetha', batch:'qa'},{name:'sheeba', batch:'ui'}]; 
             });
             
         </script>

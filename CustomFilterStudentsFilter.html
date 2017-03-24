@@ -58,7 +58,7 @@
                 
                 
                return function(input,batchname){
-                   if(!batchname) batchname='ui';
+                   if(!batchname) batchname='pre';
                    
                    var output=input.filter(function(stud){
                       
@@ -71,7 +71,7 @@
                }; 
             });
             myapp.controller('myCtrl', function($scope){
-               $scope.students = [{name:'sashi',batch:'ui'},{name:'kiran', batch:'ui'},{name:'leela', batch:'ui'},{name:'bavani', batch:'ui'},{name:'usha', batch:'qa'},{name:'swetha', batch:'qa'},{name:'sheeba', batch:'ui'}]; 
+               $scope.students = [{name:'veda',batch:'pre'},{name:'kiran', batch:'pre'},{name:'leela', batch:'pre'},{name:'bavani', batch:'pre'},{name:'usha', batch:'qa'},{name:'swetha', batch:'qa'},{name:'sheeba', batch:'ui'}]; 
             });
             
         </script>

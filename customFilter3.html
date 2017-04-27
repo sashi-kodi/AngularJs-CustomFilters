@@ -1,0 +1,47 @@
+<!--custom filter to convert every other alphabet to uppercase-->
+
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<body>
+
+<div ng-app="myApp" ng-controller="arrCtrl">
+
+    <ul>
+      <li ng-repeat="stud in students">
+        {{stud | myfilter}}
+        </li>
+    
+    </ul>
+
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('arrCtrl', function($scope) {
+    $scope.students = ['leela', 'kiran', 'sashi'];
+    
+});
+
+app.filter('myfilter', function(){
+   return function(input){
+     var output='';
+       for(var i=0;i<input.length;i++){
+           if(i% 2===0) {
+               output+= input[i].toUpperCase();
+           }
+           else
+               output+=  input[i];
+       }
+       return output;
+   };
+});
+    
+    
+    
+</script>
+
+<p>Return only the items that matches your filter.</p>
+
+</body>
+</html>

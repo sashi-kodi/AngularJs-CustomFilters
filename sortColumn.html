@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<body>
+
+<div ng-app="myApp" ng-controller="arrCtrl">
+<input type="text" ng-model="myfilter">
+<table>
+    <tr>
+        <th ng-click="sort('name')">Name</th>
+        <th ng-click="sort('city')">City</th>
+    </tr>
+    <tr ng-repeat="stud in students|filter:myfilter|orderBy:sortcol:sortorder"><td>{{stud.name}}</td>
+        <td> {{stud.city}}</td></tr>
+    </table>
+
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('arrCtrl', function($scope) {
+    $scope.students = [{name:'sashi', city:'san ramon'},{name:'kiran', city:'cupertino'},{name:'chandra', city:'willistower'}];
+    
+    $scope.sortcol = 'name';
+    $scope.sortorder = true;
+    
+    $scope.sort= function(name){
+        if($scope.sortcol === name){
+            $scope.sortorder = ! $scope.sortorder;
+        }
+        else{
+            $scope.sortcol = name;
+        }
+      
+    }
+});
+
+    
+    
+    
+</script>
+
+<p>Return only the items that matches your filter.</p>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!--http call to get employees records-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+    
+       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <style>
+            table,th,td{
+                border:1px solid grey;
+                border-collapse:collapse;
+                padding:5px;
+            }
+            table tr:nth-child(even){
+                background-color:azure;
+            }
+        </style>
+    </head>
+
+<body>
+
+<div ng-app="myApp" ng-controller="empCtrl">
+
+    <table>
+      <tr>
+          <th>Employee Name</th>
+          <th>Employee City</th>
+          <th>Employee Sal</th>
+        </tr>
+      <tr ng-repeat="emp in employees">
+          <td>{{emp.name}}</td>
+          <td>{{emp.city}}</td>
+          <td>{{emp.sal}}</td>
+        </tr>
+        <p ng-if="error">{{error}}</p>
+    </table>
+
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+    app.service('EmpService', function($http){
+        this.getEmployees = function(){
+          return $http.get('employees.json');  
+        };
+    });
+app.controller('empCtrl', function($scope,EmpService) {
+    $scope.employees=[];
+    
+    
+    EmpService.getEmployees()
+    .then(function(res){
+        $scope.employees = res.data;
+        $scope.error="";
+        
+    }, function(res){
+        $scope.error = "Error occured at server with status code : "+res.status;
+        
+    });
+    
+    
+});
+
+
+    
+    
+</script>
+
+<p>Return only the items that matches your filter.</p>
+
+</body>
+</html>
